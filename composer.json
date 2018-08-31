@@ -1,0 +1,13 @@
+{
+    "require": {
+        "php": ">=7.2.0",
+        "pecee/simple-router": "4.2.0.4",
+        "robmorgan/phinx": "^0.10.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Framework\\":"framework/",
+            "App\\":"app/"
+        }
+    }
+}
