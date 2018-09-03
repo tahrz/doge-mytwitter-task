@@ -8,22 +8,16 @@ class LoginController
 {
     public function index()
     {
-        View::render('login', [
-            'pageTitle' => 'Login to your account',
-        ]);
+        View::render('login');
     }
 
     public function register()
     {
-        View::render('register', [
-            'pageTitle' => 'Registration page',
-        ]);
+        View::render('register');
     }
 
     public function forgotPassword()
     {
-        View::render('forgot-password', [
-            'pageTitle' => 'Forgot password',
-        ]);
+        View::render('forgot-password');
     }
 }

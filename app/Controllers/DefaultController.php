@@ -8,8 +8,6 @@ class DefaultController
 {
     public function notFound()
     {
-        View::render('404', [
-            'pageTitle' => 'Page not found',
-        ]);
+        View::render('404');
     }
 }

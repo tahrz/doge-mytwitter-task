@@ -1,4 +1,6 @@
 <?php
+    $pageTitle = 'Login page';
+
     require_once 'layout/header.php';
     require_once 'layout/simple-page-start.php';
     require_once 'layout/menu.php';

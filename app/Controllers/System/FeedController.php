@@ -8,8 +8,6 @@ class FeedController
 {
     public function index()
     {
-        View::render('feed', [
-            'pageTitle' => 'Global feed',
-        ]);
+        View::render('feed');
     }
 }

@@ -1,4 +1,6 @@
 <?php
+    $pageTitle = 'Global feed';
+
     require_once 'layout/header.php';
     require_once 'layout/simple-page-start.php';
     require_once 'layout/menu.php';

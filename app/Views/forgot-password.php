@@ -1,4 +1,6 @@
 <?php
+    $pageTitle = 'Reset password';
+
     require_once 'layout/header.php';
     require_once 'layout/pretty-page-start.php';
 ?>
