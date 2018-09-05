@@ -16,6 +16,7 @@ Router::group(['namespace' => '\App\Controllers\User'], function () {
 
 Router::group(['namespace' => '\App\Controllers\System'], function () {
     Router::get('/', 'FeedController@index');
+    Router::post('/tweet/add', 'FeedController@create');
 });
 
 Router::group(['namespace' => '\App\Controllers'], function () {

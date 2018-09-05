@@ -96,7 +96,7 @@
 		</div>
 
     <script>
-        var element = document.getElementById("item1");
+        var element = document.getElementById("item1docke");
         element.classList.add("active");
     </script>
 
