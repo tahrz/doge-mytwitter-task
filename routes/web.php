@@ -3,6 +3,10 @@
 use Framework\Router;
 use Pecee\Http\Request;
 
+Router::get('/', function () {
+    Router::response()->redirect('/login');
+});
+
 Router::group(['namespace' => '\App\Controllers\Auth'], function () {
     Router::get('/login', 'LoginController@index');
     Router::get('/registration', 'LoginController@register');

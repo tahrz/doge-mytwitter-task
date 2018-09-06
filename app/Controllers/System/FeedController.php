@@ -4,6 +4,7 @@ namespace App\Controllers\System;
 
 use Framework\View;
 use App\Models\Tweet;
+use App\Helpers\Traits;
 use App\Helpers\Permission;
 
 class FeedController
@@ -37,7 +38,7 @@ class FeedController
             ]);
         }
 
-        $tweets = Tweet::findAll();
+        $tweets = (new Tweet())->findAll();
         View::render('feed', ['tweets' => $tweets]);
     }
 
@@ -51,9 +52,12 @@ class FeedController
         }
 
         //form validation need here
-        dd($_POST['data']);
+        $_POST['data']['user_id'] = 1;
+        $_POST['data']['date_changed'] = time();
+        $_POST['data']['date_updated'] = time();
 
-        //Tweet::createNewTweet();
-        //View::render('feed', ['tweets' => $tweets]);
+        (new Tweet())->create($_POST['data']);
+
+        Traits::redirect('/');
     }
 }

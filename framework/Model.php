@@ -3,6 +3,7 @@
 namespace Framework;
 
 use PDO;
+use App\Contracts\Connect;
 use App\Contracts\ModelInterface;
 
 /**
@@ -10,12 +11,72 @@ use App\Contracts\ModelInterface;
  *
  * @package framework
  */
-abstract class Model implements ModelInterface
+abstract class Model extends Connect implements ModelInterface
 {
     /**
      * @var
      */
     static protected $db;
+
+    /**
+     * @param array $request
+     */
+    public function create(array $request)
+    {
+        $vars1 = '`id`, ';
+        $temple = 'Null, ';
+        $vars2 = '';
+        $iterationNum = 1;
+        $dumpArray = [];
+
+        foreach ($request as $key => $value) {
+            $dumpDot = ', ';
+
+            if ($iterationNum == count($request)) {
+                $dumpDot = '';
+            }
+
+            $temple .= '?' . $dumpDot;
+            $key = str_replace(["'", "'"], '', $key);
+            $vars1 .= '`' . $key . '`' . $dumpDot;
+
+            $dumpArray[] = $value;
+            $iterationNum++;
+        }
+
+        $sql = 'INSERT INTO users (' . $vars1 . ') 
+                VALUES (' . $vars2 . ')';
+        $stmt = static::db()->prepare($sql);
+
+        $this->actionPDO("INSERT INTO `" . static::tableName() . "` (" . $vars1 . ") VALUES (" . $temple . ")",
+            $dumpArray);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function findAll()
+    {
+        $sql = "SELECT * FROM " . static::tableName();
+        $res = $this->con->query($sql);
+        $dump_array = [];
+        foreach ($res as $r) {
+            array_push($dump_array, $r);
+        }
+
+        return array_reverse($dump_array);
+    }
+
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return bool
+     */
+    public function actionPDO(string $sql, array $params)
+    {
+        $res = $this->con->prepare($sql);
+        $res->execute($params);
+    }
 
     /**
      * @return mixed
@@ -34,7 +95,7 @@ abstract class Model implements ModelInterface
     /**
      * @return string
      */
-    public static function className():string
+    public static function className(): string
     {
         return (new \ReflectionClass(static::class))->getShortName();
     }
@@ -49,74 +110,4 @@ abstract class Model implements ModelInterface
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * @return mixed
-     */
-    public static function findAll()
-    {
-        $stmt = static::db()->query('SELECT * FROM ' . static::tableName());
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * @param array $params
-     * @return mixed
-     */
-    public static function create(array $params)
-    {
-        $vars1 = '';
-        $vars2 = '';
-        $iterationNum = 0;
-        $dumpArray = [];
-
-        foreach ($params as $key => $value) {
-            $dumpDot = ', ';
-
-            if ($iterationNum == count($params)) {
-                $dumpDot = '';
-            }
-
-            $vars1 .= $key . $dumpDot;
-            $vars2 .= ':' . $key . $dumpDot;
-
-            array_push($dumpArray, [':' . $key => $value]);
-        }
-
-        $sql = 'INSERT INTO users (' . $vars1 . ') 
-                VALUES (' . $vars2 . ')';
-        $stmt = static::db()->prepare($sql);
-
-        return $stmt->execute($dumpArray);
-    }
-
-    /**
-     * @param array $params
-     * @return mixed
-     */
-    public static function update(array $params)
-    {
-        $vars1 = '';
-        $vars2 = '';
-        $iterationNum = 0;
-        $dumpArray = [];
-
-        foreach ($params as $key => $value) {
-            $dumpDot = ', ';
-
-            if ($iterationNum == count($params)) {
-                $dumpDot = '';
-            }
-
-            $vars1 .= $key . $dumpDot;
-            $vars2 .= ':' . $key . $dumpDot;
-
-            array_push($dumpArray, [':' . $key => $value]);
-        }
-
-        $sql = 'UPDATE users (' . $vars1 . ') 
-                VALUES (' . $vars2 . ')';
-        $stmt = static::db()->prepare($sql);
-
-        return $stmt->execute($dumpArray);
-    }
 }

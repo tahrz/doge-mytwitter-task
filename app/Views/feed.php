@@ -15,7 +15,7 @@
                                         <form action="/tweet/add" method="POST" style="display: block; width: 100%;">
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" name="data['text']" placeholder="Message">
+                                                    <input type="text" class="form-control" name="data['content']" placeholder="Message">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button type="submit" class="btn btn-secondary">
@@ -44,11 +44,11 @@
                                                 <div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/1.jpg)"></div>
                                                 <div class="media-body">
                                                     <div class="media-heading">
-                                                        <small class="float-right text-muted">4 min</small>
-                                                        <h5><?= $tw['author'] ?></h5>
+                                                        <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw['date_changed']); ?></small>
+                                                        <h5><?= $tw['user_id'] ?></h5>
                                                     </div>
                                                     <div>
-                                                        <?= $tw['text']; ?>
+                                                        <?= $tw['content']; ?>
                                                     </div>
                                                 </div>
                                             </div>
