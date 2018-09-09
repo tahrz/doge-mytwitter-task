@@ -1,5 +1,5 @@
 <?php
-    $pageTitle = 'Login page';
+    $pageTitle = 'Settings';
 
     require_once 'layout/header.php';
     require_once 'layout/simple-page-start.php';
@@ -9,73 +9,42 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <form class="card">
+                    <form class="card" method="post">
                         <div class="card-body">
                             <h3 class="card-title">Edit Profile</h3>
+                            <form action="" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <label class="form-label">Company</label>
-                                        <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" class="form-control" name="name" placeholder="Name" value="<?php if (isset($data)) { echo  $data['name']; } ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                     <div class="form-group">
-                                        <label class="form-label">Username</label>
-                                        <input type="text" class="form-control" placeholder="Username" value="michael23">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email" placeholder="Email" value="<?php if (isset($data)) { echo  $data['email']; } ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group">
-                                        <label class="form-label">Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" placeholder="Company" value="Chet">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" value="Faker">
+                                        <label class="form-label">New Password</label>
+                                        <input type="password" name="password" class="form-control" placeholder="Password">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">City</label>
-                                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Postal Code</label>
-                                        <input type="number" class="form-control" placeholder="ZIP Code">
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label class="form-label">Country</label>
-                                        <select class="form-control custom-select">
-                                            <option value="">Germany</option>
-                                        </select>
+                                        <div class="form-label">Avatar</div>
+                                        <div class="custom-file">
+                                            <input type="file" name="avatar" class="custom-file-input"/>
+                                            <label class="custom-file-label">Choose file</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group mb-0">
-                                        <label class="form-label">About Me</label>
-                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme
-You doubt I'll bother, reading into it
-I'll probably won't, left to my own devices
-But that's the difference in our opinions.</textarea>
+                                        <label class="form-label">About</label>
+                                        <textarea rows="5" class="form-control" name="about" placeholder="About"><?php if (isset($data)) { echo  $data['about']; } ?></textarea>
                                     </div>
                                 </div>
                             </div>

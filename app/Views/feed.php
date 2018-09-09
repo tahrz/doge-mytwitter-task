@@ -12,7 +12,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="input-group">
-                                        <form action="/tweet/add" method="POST" style="display: block; width: 100%;">
+                                        <form action="/feed/add" method="POST" style="display: block; width: 100%;">
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" name="data['content']" placeholder="Message">

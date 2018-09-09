@@ -58,6 +58,6 @@ class FeedController
 
         (new Tweet())->create($_POST['data']);
 
-        Traits::redirect('/');
+        Traits::redirect('/feed');
     }
 }

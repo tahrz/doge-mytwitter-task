@@ -42,21 +42,18 @@
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
                         <span class="avatar" style="background-image: url(./demo/faces/female/25.jpg)"></span>
                         <span class="ml-2 d-none d-lg-block">
-										<span class="text-default">Jane Pearson</span>
-										<small class="text-muted d-block mt-1">user</small>
+										<span class="text-default"><?php  $_SESSION['login'];?></span>
+										<small class="text-muted d-block mt-1"><?= $_SESSION['role'];?></small>
 									</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="/profile/tahrz">
+                        <a class="dropdown-item" href="/profile/<?= $_SESSION['login'];?>">
                             <i class="dropdown-icon fe fe-user"></i> Profile
                         </a>
-                        <a class="dropdown-item" href="/profile/tahrz/settings">
+                        <a class="dropdown-item" href="/profile/<?= $_SESSION['login'];?>/settings">
                             <i class="dropdown-icon fe fe-settings"></i> Settings
                         </a>
                         <div class="dropdown-divider"></div>
-<!--                        <a class="dropdown-item" href="#">-->
-<!--                            <i class="dropdown-icon fe fe-help-circle"></i> Need help?-->
-<!--                        </a>-->
                         <a class="dropdown-item" href="/logout">
                             <i class="dropdown-icon fe fe-log-out"></i> Sign out
                         </a>
@@ -77,7 +74,7 @@
             <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                     <li class="nav-item">
-                        <a href="/profile/tahrz" id="item1" class="nav-link"><i class="fe fe-home"></i> My page</a>
+                        <a href="/profile/<?= $_SESSION['login'];?>" id="item1" class="nav-link"><i class="fe fe-home"></i> My page</a>
                     </li>
                     <li class="nav-item">
                         <a href="/" id="item2" class="nav-link"><i class="fe fe-file"></i>Tweets feed</a>

@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use framework\Model;
+use PDO;
+use Framework\Model;
 
 /**
  * Class User
@@ -12,33 +13,43 @@ use framework\Model;
 class User extends Model
 {
     /**
-     * @return array
+     * @return string
      */
-    public static function getAll(): array
+    public static function tableName()
     {
-        $stmt = static::db()->query('SELECT * FROM users');
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return 'users';
     }
 
     /**
      * @param string $email
-     * @return array
+     * @return mixed
      */
-    public static function getByEmail(string $email): array
+    public function getByEmail(string $email)
     {
-        $stmt = static::db()->prepare('SELECT * FROM users WHERE email = :email');
-        $stmt->execute([':email' => $email]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $statement = $this->con->prepare('SELECT * FROM ' . static::tableName() . ' WHERE email = :email');
+        $statement->execute([':email' => $email]);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param string $email
+     * @return mixed
+     */
+    public function getByLogin(string $login)
+    {
+        $statement = $this->con->prepare('SELECT * FROM ' . static::tableName() . ' WHERE login = :login');
+        $statement->execute([':login' => $login]);
 
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 
     /**
      * @param string $password
      * @return string
      */
-    protected static function hashPassword(string $password): string
+    public static function hashPassword(string $password): string
     {
-        return hash('sha256', PASS_SALT . $password);
+        return md5($password);
     }
 }

@@ -8,19 +8,20 @@ Router::get('/', function () {
 });
 
 Router::group(['namespace' => '\App\Controllers\Auth'], function () {
-    Router::get('/login', 'LoginController@index');
-    Router::get('/registration', 'LoginController@register');
+    Router::match(['get', 'post'], '/login', 'LoginController@index');
+    Router::match(['get', 'post'],'/registration', 'RegistrationController@index');
+    Router::get('/logout', 'LoginController@logout');
     Router::get('/forgot-password', 'LoginController@register');
 });
 
 Router::group(['namespace' => '\App\Controllers\User'], function () {
     Router::get('/profile/{login}', 'ProfileController@index');
-    Router::get('/profile/{login}/settings', 'ProfileController@settings');
+    Router::match(['get', 'post'], '/profile/{login}/settings', 'ProfileController@settings');
 });
 
 Router::group(['namespace' => '\App\Controllers\System'], function () {
-    Router::get('/', 'FeedController@index');
-    Router::post('/tweet/add', 'FeedController@create');
+    Router::get('/feed', 'FeedController@index');
+    Router::post('/feed/add', 'FeedController@create');
 });
 
 Router::group(['namespace' => '\App\Controllers'], function () {
