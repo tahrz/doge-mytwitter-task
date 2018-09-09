@@ -12,9 +12,7 @@ class TableUsers extends AbstractMigration
             ->addColumn('avatar', 'string', ['limit' => 255, 'default' => null])
             ->addColumn('about', 'string', ['limit' => 255, 'default' => null])
             ->addColumn('name', 'string', ['limit' => 255, 'default' => null])
-            ->addColumn('ip', 'string', ['limit' => 255, 'default' => null])
-            ->addColumn('registered', 'integer')
-            ->addColumn('last_login', 'integer')
+            ->addColumn('login', 'string', ['limit' => 255])
             ->create();
     }
 }

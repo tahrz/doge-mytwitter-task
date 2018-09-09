@@ -3,7 +3,9 @@
         "php": ">=7.2.0",
         "pecee/simple-router": "4.2.0.4",
         "robmorgan/phinx": "^0.10.6",
-        "symfony/yaml": "^4.1"
+        "symfony/yaml": "^4.1",
+        "hybridlogic/validation": "^1.0",
+        "samayo/bulletproof": "4.0.*"
     },
     "autoload": {
         "psr-4": {

@@ -40,9 +40,9 @@
                 </div>
                 <div class="dropdown">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-                        <span class="avatar" style="background-image: url(./demo/faces/female/25.jpg)"></span>
+                        <span class="avatar" style="background-image: url(<?=  $_SESSION['avatar'];?>); width: 32px; height: 32px;"></span>
                         <span class="ml-2 d-none d-lg-block">
-										<span class="text-default"><?php  $_SESSION['login'];?></span>
+										<span class="text-default"><?=  $_SESSION['login'];?></span>
 										<small class="text-muted d-block mt-1"><?= $_SESSION['role'];?></small>
 									</span>
                     </a>

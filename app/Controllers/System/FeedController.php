@@ -51,7 +51,6 @@ class FeedController
             ]);
         }
 
-        //form validation need here
         $_POST['data']['user_id'] = 1;
         $_POST['data']['date_changed'] = time();
         $_POST['data']['date_updated'] = time();
