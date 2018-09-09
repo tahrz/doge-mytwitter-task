@@ -44,12 +44,56 @@ abstract class Model extends Connect implements ModelInterface
             $iterationNum++;
         }
 
-        $sql = 'INSERT INTO users (' . $vars1 . ') 
-                VALUES (' . $vars2 . ')';
-        $stmt = static::db()->prepare($sql);
-
         $this->actionPDO("INSERT INTO `" . static::tableName() . "` (" . $vars1 . ") VALUES (" . $temple . ")",
             $dumpArray);
+    }
+
+    public function update(int $actual_user, array $data, array $actual)
+    {
+        $vars1 = '';
+        $temple = '';
+        $vars2 = '';
+        $iterationNum = 1;
+        $dumpArray = [];
+
+        foreach ($data as $key => $value) {
+            $dumpDot = ', ';
+
+            if ($iterationNum == count($data)) {
+                $dumpDot = '';
+            }
+
+            if ($value != '') {
+                $temple .= $key . ' = ? ' . $dumpDot;
+                $key = str_replace(["'", "'"], '', $key);
+                $vars1 .= '`' . $key . '`' . $dumpDot;
+                $dumpArray[] = $value;
+            }
+
+            $iterationNum++;
+        }
+
+        $dumpArray[] = $actual['id'];
+
+        $this->actionPDO("UPDATE " . static::tableName() . " SET " . $temple . " WHERE id = ?", $dumpArray);
+        //$this->con->prepare("INSERT INTO `" . static::tableName() . "` (" . $vars1 . ") VALUES (" . $temple . ")" . ' WHERE id = :id);
+
+//        $statement = $this->con->prepare('UPDATE * FROM ' . static::tableName() . ' WHERE id = :id;');
+//        $statement->execute([':id' => $id]);
+//
+//        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function getById(int $id)
+    {
+        $statement = $this->con->prepare('SELECT * FROM ' . static::tableName() . ' WHERE id = :id');
+        $statement->execute([':id' => $id]);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -70,7 +114,6 @@ abstract class Model extends Connect implements ModelInterface
     /**
      * @param string $sql
      * @param array $params
-     * @return bool
      */
     public function actionPDO(string $sql, array $params)
     {
@@ -79,35 +122,11 @@ abstract class Model extends Connect implements ModelInterface
     }
 
     /**
-     * @return mixed
-     */
-    protected static function db()
-    {
-        if (null === static::$db) {
-            $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
-            static::$db = new PDO($dsn, DB_USER, DB_PASS);
-            // Включаем режим отображения ошибок в PDO
-            static::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        return static::$db;
-    }
-
-    /**
      * @return string
      */
     public static function className(): string
     {
         return (new \ReflectionClass(static::class))->getShortName();
-    }
-
-    /**
-     * @param int $id
-     * @return mixed
-     */
-    public static function findById(int $id)
-    {
-        $stmt = static::db()->query('SELECT * FROM ' . static::tableName() . ' WHERE id = ' . $id);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
