@@ -15,13 +15,13 @@ Router::group(['namespace' => '\App\Controllers\Auth'], function () {
 });
 
 Router::group(['namespace' => '\App\Controllers\User'], function () {
-    Router::get('/profile/{login}', 'ProfileController@index');
+    Router::match(['get', 'post'], '/profile/{login}', 'ProfileController@index');
+    Router::get('/subscribe/{login}', 'ProfileController@subscribe');
     Router::match(['get', 'post'], '/profile/{login}/settings', 'ProfileController@settings');
 });
 
 Router::group(['namespace' => '\App\Controllers\System'], function () {
-    Router::get('/feed', 'FeedController@index');
-    Router::post('/feed/add', 'FeedController@create');
+    Router::match(['get', 'post'], '/feed', 'FeedController@index');
 });
 
 Router::group(['namespace' => '\App\Controllers'], function () {

@@ -12,7 +12,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="input-group">
-                                        <form action="/feed/add" method="POST" style="display: block; width: 100%;">
+                                        <form method="POST" style="display: block; width: 100%;">
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" name="data['content']" placeholder="Message">
@@ -41,11 +41,11 @@
                                     <?php  foreach ($tweets as $tw) { ?>
                                         <li class="list-group-item py-5">
                                             <div class="media">
-                                                <div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/1.jpg)"></div>
+                                                <div class="media-object avatar avatar-md mr-4" style="background-image: url(<?= $tw['avatar'] ?>)"></div>
                                                 <div class="media-body">
                                                     <div class="media-heading">
                                                         <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw['date_changed']); ?></small>
-                                                        <h5><?= $tw['user_id'] ?></h5>
+                                                        <h5><a href="/profile/<?= $tw['login'] ?>"><?= $tw['name'] ?></a></h5>
                                                     </div>
                                                     <div>
                                                         <?= $tw['content']; ?>

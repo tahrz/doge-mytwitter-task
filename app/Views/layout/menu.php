@@ -2,42 +2,11 @@
 <div class="header py-4">
     <div class="container">
         <div class="d-flex">
-            <a class="header-brand" href="/">
+            <a class="header-brand" href="/profile/<?= $_SESSION['login'];?>">
                 <span class="fa fa-twitter"></span>
                 <span class="header-brand-img">My twitter</span>
             </a>
             <div class="d-flex order-lg-2 ml-auto">
-                <div class="dropdown d-none d-md-flex">
-                    <a class="nav-link icon" data-toggle="dropdown">
-                        <i class="fe fe-bell"></i>
-                        <span class="nav-unread"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a href="#" class="dropdown-item d-flex">
-                            <span class="avatar mr-3 align-self-center" style="background-image: url(demo/faces/male/41.jpg)"></span>
-                            <div>
-                                <strong>Nathan</strong> pushed new commit: Fix page load performance issue.
-                                <div class="small text-muted">10 minutes ago</div>
-                            </div>
-                        </a>
-                        <a href="#" class="dropdown-item d-flex">
-                            <span class="avatar mr-3 align-self-center" style="background-image: url(demo/faces/female/1.jpg)"></span>
-                            <div>
-                                <strong>Alice</strong> started new task: Tabler UI design.
-                                <div class="small text-muted">1 hour ago</div>
-                            </div>
-                        </a>
-                        <a href="#" class="dropdown-item d-flex">
-                            <span class="avatar mr-3 align-self-center" style="background-image: url(demo/faces/female/18.jpg)"></span>
-                            <div>
-                                <strong>Rose</strong> deployed new version of NodeJS REST Api V3
-                                <div class="small text-muted">2 hours ago</div>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item text-center text-muted-dark">Mark all as read</a>
-                    </div>
-                </div>
                 <div class="dropdown">
                     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
                         <span class="avatar" style="background-image: url(<?=  $_SESSION['avatar'];?>); width: 32px; height: 32px;"></span>
@@ -77,7 +46,7 @@
                         <a href="/profile/<?= $_SESSION['login'];?>" id="item1" class="nav-link"><i class="fe fe-home"></i> My page</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/" id="item2" class="nav-link"><i class="fe fe-file"></i>Tweets feed</a>
+                        <a href="/feed" id="item2" class="nav-link"><i class="fe fe-file"></i>Tweets feed</a>
                     </li>
                 </ul>
             </div>

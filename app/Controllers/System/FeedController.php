@@ -2,6 +2,7 @@
 
 namespace App\Controllers\System;
 
+use App\Models\User;
 use Framework\View;
 use App\Models\Tweet;
 use App\Helpers\Traits;
@@ -38,25 +39,18 @@ class FeedController
             ]);
         }
 
-        $tweets = (new Tweet())->findAll();
-        View::render('feed', ['tweets' => $tweets]);
-    }
+        if ($_POST) {
+            $user = (new User())->getByLogin($_SESSION['login']);
+            $_POST['data']['user_id'] = $user['id'];
+            $_POST['data']['date_changed'] = time();
+            $_POST['data']['date_updated'] = time();
 
-    public function create()
-    {
-        if (!Permission::canI($this->myRole, $this->rules, __FUNCTION__)) {
-            View::render('error', [
-                'message' => 'You can`t create tweets. Sign up or sign in!',
-                'code' => 403
-            ]);
+            (new Tweet())->create($_POST['data']);
+
+            Traits::redirect('/feed');
         }
 
-        $_POST['data']['user_id'] = 1;
-        $_POST['data']['date_changed'] = time();
-        $_POST['data']['date_updated'] = time();
-
-        (new Tweet())->create($_POST['data']);
-
-        Traits::redirect('/feed');
+        $tweets = (new Tweet())->findAllTweets();
+        View::render('feed', ['tweets' => $tweets]);
     }
 }

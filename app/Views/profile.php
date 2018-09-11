@@ -1,106 +1,96 @@
 <?php
-    require_once 'layout/header.php';
-    require_once 'layout/simple-page-start.php';
-    require_once 'layout/menu.php';
+require_once 'layout/header.php';
+require_once 'layout/simple-page-start.php';
+require_once 'layout/menu.php';
 ?>
-			<div class="my-3 my-md-5">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-4">
-							<div class="card card-profile">
-								<div class="card-header" style="background-image: url(demo/photos/eberhard-grossgasteiger-311213-500.jpg);"></div>
-								<div class="card-body text-center">
-									<img class="card-profile-img" src="demo/faces/male/16.jpg">
+    <div class="my-3 my-md-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card card-profile">
+                        <div class="card-header"
+                             style="background-image: url(demo/photos/eberhard-grossgasteiger-311213-500.jpg);"></div>
+                        <div class="card-body text-center">
+                            <img class="card-profile-img" src="<?= $user['avatar']; ?>">
+                            <?php
+                            if (isset($user['name'])) {
+                                echo '<h3>' . $user['name'] . '</h3>';
+                            } else {
+                                echo '<h3>' . $_SESSION['login'] . '</h3>';
+                            }
 
-									<h3 class="mb-3">Peter Richards</h3>
+                            if (isset($user['about'])) {
+                                echo '<p class="mb-4">' . $user['about'] . '</p>';
+                            }
 
-									<p class="mb-4">
-										Big belly rude boy, million dollar hustler. Unemployed.
-									</p>
+                            $fname = 'Follow';
 
-									<button class="btn btn-outline-primary btn-sm">
-										<span class="fa fa-twitter"></span> Follow
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-8">
-							<div class="card">
-								<div class="card-header">
-									<div class="input-group">
-										<input type="text" class="form-control" placeholder="Message">
-										<div class="input-group-append">
-											<button type="button" class="btn btn-secondary">
-												<b>Send</b>
-											</button>
-										</div>
-									</div>
-								</div>
+                            if ($linkN !== '') {
+                                $fname = $linkN;
+                            }
 
-								<ul class="list-group card-list-group">
-									<li class="list-group-item py-5">
-										<div class="media">
-											<div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/16.jpg)"></div>
-											<div class="media-body">
-												<div class="media-heading">
-													<small class="float-right text-muted">4 min</small>
-													<h5>Peter Richards</h5>
-												</div>
-												<div>
-													Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras
-													justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes,
-													nascetur ridiculus mus.
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="list-group-item py-5">
-										<div class="media">
-											<div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/16.jpg)"></div>
-											<div class="media-body">
-												<div class="media-heading">
-													<small class="float-right text-muted">12 min</small>
-													<h5>Peter Richards</h5>
-												</div>
-												<div>
-													Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis
-													parturient montes, nascetur ridiculus mus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-												</div>
-											</div>
-										</div>
-									</li>
-									<li class="list-group-item py-5">
-										<div class="media">
-											<div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/16.jpg)"></div>
-											<div class="media-body">
-												<div class="media-heading">
-													<small class="float-right text-muted">34 min</small>
-													<h5>Peter Richards</h5>
-												</div>
+                            if ($subscribeLink !== '') {
+                                echo '<a class="btn btn-outline-primary btn-sm" href="' . $subscribeLink . '">
+                                                <span class="fa fa-twitter"></span> '
 
-												<div>
-													Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-													venenatis vestibulum. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-												</div>
+                                    . $fname . '
+                                            </a>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
 
-											</div>
-										</div>
-									</li>
-								</ul>
+                            <form method="POST" style="display: block; width: 100%;">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="data['content']" placeholder="Message">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-secondary">
+                                            <b>Send</b>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                        <ul class="list-group card-list-group">
+
+                            <?php  foreach ($tweets as $tw) { ?>
+                                <li class="list-group-item py-5">
+                                    <div class="media">
+                                        <div class="media-object avatar avatar-md mr-4" style="background-image: url(<?= $tw['avatar'] ?>)"></div>
+                                        <div class="media-body">
+                                            <div class="media-heading">
+                                                <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw['date_changed']); ?></small>
+                                                <h5><?= $tw['name'] ?></h5>
+                                            </div>
+                                            <div>
+                                                <?= $tw['content']; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            <?php } ?>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <script>
-        var element = document.getElementById("item1docke");
+        var element = document.getElementById("item1");
         element.classList.add("active");
     </script>
 
 <?php
-    require_once 'layout/footer.php';
-    require_once 'layout/page_bottom.php';
+require_once 'layout/footer.php';
+require_once 'layout/page_bottom.php';
 ?>

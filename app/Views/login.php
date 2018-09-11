@@ -25,7 +25,6 @@
                         <div class="form-group">
                             <label class="form-label">
                                 Password
-                                <a href="./forgot-password" class="float-right small">I forgot password</a>
                             </label>
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>
