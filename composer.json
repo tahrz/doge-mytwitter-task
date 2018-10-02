@@ -5,7 +5,10 @@
         "robmorgan/phinx": "^0.10.6",
         "symfony/yaml": "^4.1",
         "hybridlogic/validation": "^1.0",
-        "samayo/bulletproof": "4.0.*"
+        "samayo/bulletproof": "4.0.*",
+        "illuminate/database": "^5.7",
+        "symfony/http-foundation": "^4.1",
+        "symfony/routing": "^4.1"
     },
     "autoload": {
         "psr-4": {

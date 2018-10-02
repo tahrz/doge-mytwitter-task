@@ -12,36 +12,29 @@ use App\Models\User;
 class UserRepository
 {
     /**
-     * @param array $data
-     * @return bool
+     * @param string $login
+     * @return User|null
      */
-    public function createNewUser(array $data): bool
+    public static function findByLogin(string $login): ?User
     {
-        if ((new User())->getByEmail($data['email']) || (new User())->getByLogin($data['login'])) {
-            return false;
-        }
-
-        (new User())->create($data);
-
-        return true;
+        return User::where(['login' => $login])->firstOrFail();
     }
 
-    public static function auth(string $email, string $password)
+    /**
+     * @param string $email
+     * @return mixed
+     */
+    public static function isThisEmailAlreadyExists(string $email)
     {
-        $user = (new User())->getByEmail($email);
+        return User::where(['email' => $email])->get()->isEmpty();
+    }
 
-        if (!$user) {
-            return false;
-        }
-
-        if (!isset($_SESSION['uid'])) {
-            $_SESSION['uid'] = $user['id'];
-        }
-
-        if ($user['password'] != User::hashPassword($password)) {
-            return false;
-        }
-
-        return true;
+    /**
+     * @param string $email
+     * @return User|null
+     */
+    public static function findUserByEmail(string $email): ?User
+    {
+        return User::where(['email' => $email])->firstOrFail();
     }
 }

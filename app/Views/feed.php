@@ -12,7 +12,7 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="input-group">
-                                        <form method="POST" style="display: block; width: 100%;">
+                                        <form method="POST" action="/feed-add" style="display: block; width: 100%;">
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <input type="text" class="form-control" name="data['content']" placeholder="Message">
@@ -38,17 +38,17 @@
                                         </div>
                                     </li>
 
-                                    <?php  foreach ($tweets as $tw) { ?>
+                                    <?php foreach ($tweets as $tw) { ?>
                                         <li class="list-group-item py-5">
                                             <div class="media">
-                                                <div class="media-object avatar avatar-md mr-4" style="background-image: url(<?= $tw['avatar'] ?>)"></div>
+                                                <div class="media-object avatar avatar-md mr-4" style="background-image: url(<?= 0//$tw['avatar'] ?>)"></div>
                                                 <div class="media-body">
                                                     <div class="media-heading">
-                                                        <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw['date_changed']); ?></small>
-                                                        <h5><a href="/profile/<?= $tw['login'] ?>"><?= $tw['name'] ?></a></h5>
+                                                        <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw->date_changed); ?></small>
+                                                        <h5><a href="/profile/<?= 0 //$tw['login'] ?>"><?= 0//$tw['name'] ?></a></h5>
                                                     </div>
                                                     <div>
-                                                        <?= $tw['content']; ?>
+                                                        <?= $tw->content; ?>
                                                     </div>
                                                 </div>
                                             </div>

@@ -10,8 +10,7 @@ class TableTweets extends AbstractMigration
         $table = $this->table('tweets', ['id' => true, 'primary_key' => ['id']]);
         $table->addColumn('user_id', 'integer')
             ->addColumn('content', 'text')
-            ->addColumn('date_changed', 'integer')
-            ->addColumn('date_updated', 'integer', ['default' => null])
+            ->addTimestamps()
             ->create();
     }
 }

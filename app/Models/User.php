@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use PDO;
-use Framework\Model;
+use  \Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
@@ -13,36 +12,21 @@ use Framework\Model;
 class User extends Model
 {
     /**
-     * @return string
+     * @var string
      */
-    public static function tableName()
-    {
-        return 'users';
-    }
+    public $table = 'users';
+    public $timestamps = false;
+    public $fillable = [
+        'email',
+        'avatar',
+        'about',
+        'name',
+        'login'
+    ];
 
-    /**
-     * @param string $email
-     * @return mixed
-     */
-    public function getByEmail(string $email)
-    {
-        $statement = $this->con->prepare('SELECT * FROM ' . static::tableName() . ' WHERE email = :email');
-        $statement->execute([':email' => $email]);
-
-        return $statement->fetch(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * @param string $email
-     * @return mixed
-     */
-    public function getByLogin(string $login)
-    {
-        $statement = $this->con->prepare('SELECT * FROM ' . static::tableName() . ' WHERE login = :login');
-        $statement->execute([':login' => $login]);
-
-        return $statement->fetch(PDO::FETCH_ASSOC);
-    }
+    public $hidden = [
+        'password'
+    ];
 
     /**
      * @param string $password

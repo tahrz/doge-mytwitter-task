@@ -16,10 +16,10 @@ environments:
 
     development:
         adapter: mysql
-        host: localhost
-        name: development_db
-        user: root
-        pass: ''
+        host: 192.168.11.135
+        name: 'tnetwork'
+        user: 'tnetwork'
+        pass: 'tnetwork'
         port: 3306
         charset: utf8
 

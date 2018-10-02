@@ -7,7 +7,7 @@ $env = 'development';
 /**
  * Database
  */
-define('DB_HOST',  Yaml::parseFile('../phinx.yml')['environments'][$env]['host']);
+define('DB_HOST', Yaml::parseFile('../phinx.yml')['environments'][$env]['host']);
 define('DB_NAME', Yaml::parseFile('../phinx.yml')['environments'][$env]['name']);
 define('DB_USER', Yaml::parseFile('../phinx.yml')['environments'][$env]['user']);
 define('DB_PASS', Yaml::parseFile('../phinx.yml')['environments'][$env]['pass']);

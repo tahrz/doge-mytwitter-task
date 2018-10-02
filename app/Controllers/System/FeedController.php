@@ -7,6 +7,8 @@ use Framework\View;
 use App\Models\Tweet;
 use App\Helpers\Traits;
 use App\Helpers\Permission;
+use Illuminate\Database\Capsule\Manager;
+use Illuminate\Support\Traits\CapsuleManagerTrait;
 
 class FeedController
 {
@@ -50,7 +52,6 @@ class FeedController
             Traits::redirect('/feed');
         }
 
-        $tweets = (new Tweet())->findAllTweets();
-        View::render('feed', ['tweets' => $tweets]);
+        View::render('feed', ['tweets' => Tweet::all()]);
     }
 }

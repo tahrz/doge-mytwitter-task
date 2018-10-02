@@ -11,7 +11,7 @@ use App\Contracts\ModelInterface;
  *
  * @package framework
  */
-abstract class Model extends Connect implements ModelInterface
+abstract class Model extends \Illuminate\Database\Eloquent\Model implements ModelInterface
 {
     /**
      * @var
