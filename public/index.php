@@ -1,9 +1,9 @@
 <?php
 
-require '../vendor/autoload.php';
-require '../Helper.php';
-require '../config/app.php';
-require '../config/ORMcapsule.php';
+require_once '../vendor/autoload.php';
+require_once '../Helper.php';
+require_once '../config/app.php';
+require_once '../config/ORMcapsule.php';
 
-session_start();
-\Framework\Router::start();
+(new \Framework\SystemSession())->start();
+\Framework\SystemRouter::start();

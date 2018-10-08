@@ -9,9 +9,9 @@ class TableUsers extends AbstractMigration
         $table = $this->table('users', ['id' => true, 'primary_key' => ['id']]);
         $table->addColumn('email', 'string', ['limit' => 255])
             ->addColumn('password', 'string', ['limit' => 255])
-            ->addColumn('avatar', 'string', ['limit' => 255, 'default' => null])
-            ->addColumn('about', 'string', ['limit' => 255, 'default' => null])
-            ->addColumn('name', 'string', ['limit' => 255, 'default' => null])
+            ->addColumn('avatar', 'string', ['limit' => 255, 'null' => true])
+            ->addColumn('about', 'string', ['limit' => 255, 'null' => true])
+            ->addColumn('name', 'string', ['limit' => 255, 'null' => true])
             ->addColumn('login', 'string', ['limit' => 255])
             ->create();
     }

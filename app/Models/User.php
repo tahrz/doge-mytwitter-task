@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use  \Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class User
@@ -15,15 +16,27 @@ class User extends Model
      * @var string
      */
     public $table = 'users';
+
+    /**
+     * @var bool
+     */
     public $timestamps = false;
+
+    /**
+     * @var array
+     */
     public $fillable = [
         'email',
         'avatar',
         'about',
         'name',
-        'login'
+        'login',
+        'password'
     ];
 
+    /**
+     * @var array
+     */
     public $hidden = [
         'password'
     ];
@@ -35,5 +48,13 @@ class User extends Model
     public static function hashPassword(string $password): string
     {
         return md5($password);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function tweets(): HasMany
+    {
+        return $this->hasMany(Tweet::class);
     }
 }

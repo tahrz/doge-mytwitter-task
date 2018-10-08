@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col col-login mx-auto">
 
-				<form class="card" action="/login" method="post">
+				<form class="card" method="post">
                     <div class="card-body p-6">
                         <div class="card-title">Login to your account</div>
 

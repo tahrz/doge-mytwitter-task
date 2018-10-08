@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repository\UserRepository;
 
 /**
@@ -11,18 +12,32 @@ use App\Repository\UserRepository;
  */
 class Auth
 {
-    public static function auth(string $email, string $password)
+    /**
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
+    public static function auth(string $email, string $password): bool
     {
-        $user = UserRepository::findUserByEmail($email);
+        $user = static::tryFindUserWithEmail($email);
 
-        if (!isset($_SESSION['uid'])) {
-            $_SESSION['uid'] = $user['id'];
+        if ($user['password'] === User::hashPassword($password)) {
+            return true;
         }
 
-        if ($user['password'] !== User::hashPassword($password)) {
+        return false;
+    }
+
+    /**
+     * @param string $email
+     * @return User|bool|null
+     */
+    private static function tryFindUserWithEmail(string $email)
+    {
+        try {
+            return UserRepository::findUserByEmail($email);
+        } catch (\Exception $exception) {
             return false;
         }
-
-        return true;
     }
 }

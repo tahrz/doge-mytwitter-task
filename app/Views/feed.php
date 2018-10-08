@@ -12,10 +12,10 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="input-group">
-                                        <form method="POST" action="/feed-add" style="display: block; width: 100%;">
+                                        <form method="POST" style="display: block; width: 100%;">
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    <input type="text" class="form-control" name="data['content']" placeholder="Message">
+                                                    <input type="text" class="form-control" name="content" placeholder="Message">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button type="submit" class="btn btn-secondary">
@@ -45,7 +45,7 @@
                                                 <div class="media-body">
                                                     <div class="media-heading">
                                                         <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw->date_changed); ?></small>
-                                                        <h5><a href="/profile/<?= 0 //$tw['login'] ?>"><?= 0//$tw['name'] ?></a></h5>
+                                                        <h5><a href="/profile/<?= $tw->author->login ?>"><?= $tw->author->name ?></a></h5>
                                                     </div>
                                                     <div>
                                                         <?= $tw->content; ?>

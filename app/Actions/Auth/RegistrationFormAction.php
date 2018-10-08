@@ -1,15 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: scloud
- * Date: 02.10.18
- * Time: 16:58
- */
 
 namespace App\Actions\Auth;
 
+use Framework\View;
+use Framework\Action;
 
-class RegistrationFormAction
+/**
+ * Class RegistrationFormAction
+ *
+ * @package App\Actions\Auth
+ */
+class RegistrationFormAction extends Action
 {
-
+    public function __invoke()
+    {
+        View::render('register');
+    }
 }

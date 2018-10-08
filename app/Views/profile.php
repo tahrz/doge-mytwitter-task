@@ -2,6 +2,13 @@
 require_once 'layout/header.php';
 require_once 'layout/simple-page-start.php';
 require_once 'layout/menu.php';
+
+$session = (new \Framework\SystemSession())->getSession();
+$linkN = '';
+$subscribeLink = '/subscribe/' . $user->getAttribute('login');
+if ($session->get('login') !== $user->getAttribute('login')) {
+    $linkN = 'Follow';
+}
 ?>
     <div class="my-3 my-md-5">
         <div class="container">
@@ -16,25 +23,21 @@ require_once 'layout/menu.php';
                             if (isset($user['name'])) {
                                 echo '<h3>' . $user['name'] . '</h3>';
                             } else {
-                                echo '<h3>' . $_SESSION['login'] . '</h3>';
+                                echo '<h3>' . $user['login'] . '</h3>';
                             }
 
                             if (isset($user['about'])) {
                                 echo '<p class="mb-4">' . $user['about'] . '</p>';
                             }
 
-                            $fname = 'Follow';
+                            $fname = '';
 
                             if ($linkN !== '') {
                                 $fname = $linkN;
-                            }
-
-                            if ($subscribeLink !== '') {
-                                echo '<a class="btn btn-outline-primary btn-sm" href="' . $subscribeLink . '">
-                                                <span class="fa fa-twitter"></span> '
-
-                                    . $fname . '
-                                            </a>';
+                                if ($subscribeLink !== '') {
+                                    echo '<a class="btn btn-outline-primary btn-sm" href="' . $subscribeLink . '">
+                                     <span class="fa fa-twitter"></span>' . $fname . '</a>';
+                                }
                             }
                             ?>
                         </div>
@@ -43,11 +46,11 @@ require_once 'layout/menu.php';
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-header">
-
+                            <?php if ($linkN === '') {?>
                             <form method="POST" style="display: block; width: 100%;">
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" name="data['content']" placeholder="Message">
+                                        <input type="text" class="form-control" name="content" placeholder="Message">
                                     </div>
                                     <div class="col-md-2">
                                         <button type="submit" class="btn btn-secondary">
@@ -56,21 +59,22 @@ require_once 'layout/menu.php';
                                     </div>
                                 </div>
                             </form>
+                            <?php } ?>
                         </div>
 
                         <ul class="list-group card-list-group">
-
-                            <?php  foreach ($tweets as $tw) { ?>
+                            <?php foreach ($tweets as $tw) { ?>
                                 <li class="list-group-item py-5">
                                     <div class="media">
-                                        <div class="media-object avatar avatar-md mr-4" style="background-image: url(<?= $tw['avatar'] ?>)"></div>
+                                        <div class="media-object avatar avatar-md mr-4"
+                                             style="background-image: url(<?= $tw->author->avatar ?>)"></div>
                                         <div class="media-body">
                                             <div class="media-heading">
-                                                <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw['date_changed']); ?></small>
-                                                <h5><?= $tw['name'] ?></h5>
+                                                <small class="float-right text-muted"><?= $tw->updated_at; ?></small>
+                                                <h5><?= $tw->author->name ?></h5>
                                             </div>
                                             <div>
-                                                <?= $tw['content']; ?>
+                                                <?= $tw->content; ?>
                                             </div>
                                         </div>
                                     </div>

@@ -16,7 +16,7 @@ class AddAction extends Action
 {
     public function __invoke()
     {
-        $user = UserRepository::findByLogin($_SESSION['login']);
+        $user = UserRepository::findByLogin($this->session->get('login'));
 
         Tweet::create([
             'user_id' => $user->id,

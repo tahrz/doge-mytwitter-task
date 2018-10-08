@@ -17,9 +17,9 @@ environments:
     development:
         adapter: mysql
         host: 192.168.11.135
-        name: 'tnetwork'
-        user: 'tnetwork'
-        pass: 'tnetwork'
+        name: 'lara'
+        user: 'lara'
+        pass: 'lara'
         port: 3306
         charset: utf8
 
