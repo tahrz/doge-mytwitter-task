@@ -5,6 +5,7 @@ namespace App\Actions\User;
 use Framework\View;
 use Framework\Action;
 use App\Repository\UserRepository;
+use App\Repository\FollowerRepository;
 
 /**
  * Class ShowAction
@@ -13,12 +14,16 @@ use App\Repository\UserRepository;
  */
 class ShowAction extends Action
 {
+    /**
+     * @param string $login
+     */
     public function __invoke(string $login)
     {
         $user = $this->checkOnUserExits($login);
         View::render('profile', [
             'user' => $user,
             'tweets' => $user->tweets,
+            'isFriends' => FollowerRepository::isFriendsByLogin($this->session->get('login'), $login),
             'pageTitle' => 'Profile - '. $user->getAttribute('login'),
         ]);
     }

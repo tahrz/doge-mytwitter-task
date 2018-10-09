@@ -2,9 +2,10 @@
 
 namespace App\Actions\User;
 
-use Framework\View;
+use App\Helpers\Traits;
 use Framework\Action;
 use App\Repository\UserRepository;
+use App\Repository\TweetRepository;
 
 /**
  * Class AddTweetAction
@@ -13,31 +14,10 @@ use App\Repository\UserRepository;
  */
 class AddTweetAction extends Action
 {
-    public function __invoke(string $login)
+    public function __invoke()
     {
-        $this->checkOnUserExits($login);
-
-        if ($login !== $this->session->get('login')) {
-            View::render('error', [
-                'code' => 403,
-                'message' => 'You don`t have permission!'
-            ]);
-        }
-    }
-
-    /**
-     * @param string $login
-     * @return \App\Models\User|null
-     */
-    private function checkOnUserExits(string $login)
-    {
-        try {
-            return UserRepository::findByLogin($login);
-        } catch (\Exception $exception) {
-            View::render('error', [
-                'code' => 404,
-                'message' => 'User not found!'
-            ]);
-        }
+        $user = UserRepository::findByLogin($this->session->get('login'));
+        TweetRepository::addNew($user->id, $this->request->get('content'));
+        Traits::redirect('/profile/' . $this->session->get('login'));
     }
 }

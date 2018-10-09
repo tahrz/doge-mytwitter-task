@@ -68,6 +68,10 @@ class UserRepository
             $user->email = $data['email'];
         }
 
+        if (isset($data['avatar'])) {
+            $user->avatar = $data['avatar'];
+        }
+
         if ($data['password']) {
             $user->password = User::hashPassword($data['password']);
         }

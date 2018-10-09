@@ -9,6 +9,10 @@ $subscribeLink = '/subscribe/' . $user->getAttribute('login');
 if ($session->get('login') !== $user->getAttribute('login')) {
     $linkN = 'Follow';
 }
+
+if (!$isFriends) {
+    $linkN = 'Unfollow';
+}
 ?>
     <div class="my-3 my-md-5">
         <div class="container">
@@ -18,7 +22,13 @@ if ($session->get('login') !== $user->getAttribute('login')) {
                         <div class="card-header"
                              style="background-image: url(demo/photos/eberhard-grossgasteiger-311213-500.jpg);"></div>
                         <div class="card-body text-center">
-                            <img class="card-profile-img" src="<?= $user['avatar']; ?>">
+                            <img class="card-profile-img" src="<?php
+                                if ($user['avatar'] != '') {
+                                    echo $user['avatar'];
+                                } else {
+                                    echo '/avatars/no-avatar.png';
+                                }
+                            ?>">
                             <?php
                             if (isset($user['name'])) {
                                 echo '<h3>' . $user['name'] . '</h3>';
@@ -61,13 +71,18 @@ if ($session->get('login') !== $user->getAttribute('login')) {
                             </form>
                             <?php } ?>
                         </div>
-
                         <ul class="list-group card-list-group">
                             <?php foreach ($tweets as $tw) { ?>
                                 <li class="list-group-item py-5">
                                     <div class="media">
                                         <div class="media-object avatar avatar-md mr-4"
-                                             style="background-image: url(<?= $tw->author->avatar ?>)"></div>
+                                             style="background-image: url(<?php
+                                             if ($tw->author->avatar != '') {
+                                                 echo $tw->author->avatar;
+                                             } else {
+                                                 echo '/avatars/no-avatar.png';
+                                             }
+                                             ?>)"></div>
                                         <div class="media-body">
                                             <div class="media-heading">
                                                 <small class="float-right text-muted"><?= $tw->updated_at; ?></small>

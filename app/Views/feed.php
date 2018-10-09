@@ -41,10 +41,16 @@
                                     <?php foreach ($tweets as $tw) { ?>
                                         <li class="list-group-item py-5">
                                             <div class="media">
-                                                <div class="media-object avatar avatar-md mr-4" style="background-image: url(<?= 0//$tw['avatar'] ?>)"></div>
+                                                <div class="media-object avatar avatar-md mr-4" style="background-image: url(<?php
+                                                if ($tw->author->avatar != '') {
+                                                    echo $tw->author->avatar;
+                                                } else {
+                                                    echo '/avatars/no-avatar.png';
+                                                }
+                                                ?>)"></div>
                                                 <div class="media-body">
                                                     <div class="media-heading">
-                                                        <small class="float-right text-muted"><?= date('m/d/Y h:m:s', $tw->date_changed); ?></small>
+                                                        <small class="float-right text-muted"><?= $tw->updated_at ?></small>
                                                         <h5><a href="/profile/<?= $tw->author->login ?>"><?= $tw->author->name ?></a></h5>
                                                     </div>
                                                     <div>
